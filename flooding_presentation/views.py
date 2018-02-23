@@ -231,11 +231,11 @@ def service_get_wms_of_shape(
         sl = mapnik.Style()
         rule_l = mapnik.Rule()
 
-        rule_stk = mapnik.Stroke()
-        rule_stk.color = mapnik.Color(3, 158, 137)
-        rule_stk.line_cap = mapnik.line_cap.ROUND_CAP
-        rule_stk.width = 2.0
-        rule_l.symbols.append(mapnik.LineSymbolizer(rule_stk))
+        rule_stk = mapnik.LineSymbolizer()
+        rule_stk.stroke = mapnik.Color(3, 158, 137)
+        rule_stk.stroke_linecap = mapnik._mapnik.stroke_linecap.ROUND_CAP
+        rule_stk.stroke_width = 2.0
+        rule_l.symbols.append(rule_stk)
         sl.rules.append(rule_l)
         m.append_style('Line Style', sl)
 
@@ -414,11 +414,11 @@ def service_get_wms_of_shape(
         sl = mapnik.Style()
         rule_l = mapnik.Rule()
 
-        rule_stk = mapnik.Stroke()
-        rule_stk.color = mapnik.Color(3, 158, 137)
-        rule_stk.line_cap = mapnik.line_cap.ROUND_CAP
-        rule_stk.width = 2.0
-        rule_l.symbols.append(mapnik.LineSymbolizer(rule_stk))
+        rule_stk = mapnik.LineSymbolizer()
+        rule_stk.stroke = mapnik.Color(3, 158, 137)
+        rule_stk.stroke_linecap = mapnik._mapnik.stroke_linecap.ROUND_CAP
+        rule_stk.stroke_width = 2.0
+        rule_l.symbols.append(rule_stk)
         sl.rules.append(rule_l)
         m.append_style('Line Style2', sl)
 

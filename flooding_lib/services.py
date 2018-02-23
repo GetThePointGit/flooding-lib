@@ -1198,11 +1198,11 @@ def service_get_existing_embankments_shape(
     #### Line style for new embankments
     s2 = mapnik.Style()
     rule_2 = mapnik.Rule()
-    rule_stk = mapnik.Stroke()
-    rule_stk.color = mapnik.Color(128, 0, 128)
-    rule_stk.line_cap = mapnik.line_cap.ROUND_CAP
-    rule_stk.width = 3.0
-    rule_2.symbols.append(mapnik.LineSymbolizer(rule_stk))
+    rule_stk = mapnik.LineSymbolizer()
+    rule_stk.stroke = mapnik.Color(128, 0, 128)
+    rule_stk.stroke_linecap = mapnik._mapnik.stroke_linecap.ROUND_CAP
+    rule_stk.stroke_width = 3.0
+    rule_2.symbols.append(rule_stk)
     s2.rules.append(rule_2)
     m.append_style('Line Style New Embankment', s2)
 
@@ -1210,11 +1210,11 @@ def service_get_existing_embankments_shape(
     s3 = mapnik.Style()
     rule_3 = mapnik.Rule()
 
-    rule_stk = mapnik.Stroke()
-    rule_stk.color = mapnik.Color(0, 255, 0)
-    rule_stk.line_cap = mapnik.line_cap.ROUND_CAP
-    rule_stk.width = 3.0
-    rule_3.symbols.append(mapnik.LineSymbolizer(rule_stk))
+    rule_stk = mapnik.LineSymbolizer()
+    rule_stk.stroke = mapnik.Color(0, 255, 0)
+    rule_stk.stroke_linecap = mapnik._mapnik.stroke_linecap.ROUND_CAP
+    rule_stk.stroke_width = 3.0
+    rule_3.symbols.append(rule_stk)
     s3.rules.append(rule_3)
     m.append_style('Line Style Polygon Selection', s3)
 
@@ -1222,11 +1222,11 @@ def service_get_existing_embankments_shape(
     s4 = mapnik.Style()
     rule_4 = mapnik.Rule()
 
-    rule_stk = mapnik.Stroke()
-    rule_stk.color = mapnik.Color(200, 200, 200)
-    rule_stk.line_cap = mapnik.line_cap.ROUND_CAP
-    rule_stk.width = 2
-    rule_4.symbols.append(mapnik.LineSymbolizer(rule_stk))
+    rule_stk = mapnik.LineSymbolizer()
+    rule_stk.stroke = mapnik.Color(200, 200, 200)
+    rule_stk.stroke_linecap = mapnik._mapnik.stroke_linecap.ROUND_CAP
+    rule_stk.stroke_width = 2
+    rule_4.symbols.append(rule_stk)
     s4.rules.append(rule_4)
     m.append_style('Line Style Specific Region', s4)
 
@@ -1234,11 +1234,11 @@ def service_get_existing_embankments_shape(
     s5 = mapnik.Style()
     rule_5 = mapnik.Rule()
 
-    rule_stk = mapnik.Stroke()
-    rule_stk.color = mapnik.Color(0, 0, 0)
-    rule_stk.line_cap = mapnik.line_cap.ROUND_CAP
-    rule_stk.width = 2.0
-    rule_5.symbols.append(mapnik.LineSymbolizer(rule_stk))
+    rule_stk = mapnik.LineSymbolizer()
+    rule_stk.stroke = mapnik.Color(0, 0, 0)
+    rule_stk.stroke_linecap = mapnik._mapnik.stroke_linecap.ROUND_CAP
+    rule_stk.stroke_width = 2.0
+    rule_5.symbols.append(rule_stk)
     s5.rules.append(rule_5)
     m.append_style('Line Style Region Boundary', s5)
 
@@ -1396,11 +1396,11 @@ def service_get_extra_shapes(request, width, height, bbox, region_id):
     sl = mapnik.Style()
     rule_l = mapnik.Rule()
 
-    rule_stk = mapnik.Stroke()
-    rule_stk.color = mapnik.Color(0, 0, 200)
-    rule_stk.line_cap = mapnik.line_cap.ROUND_CAP
-    rule_stk.width = 3.0
-    rule_l.symbols.append(mapnik.LineSymbolizer(rule_stk))
+    rule_stk = mapnik.LineSymbolizer()
+    rule_stk.stroke = mapnik.Color(0, 0, 200)
+    rule_stk.stroke_linecap = mapnik._mapnik.stroke_linecap.ROUND_CAP
+    rule_stk.stroke_width = 3.0
+    rule_l.symbols.append(rule_stk)
     sl.rules.append(rule_l)
     m.append_style('Line Style Primaire Keringen', sl)
 
@@ -1408,11 +1408,11 @@ def service_get_extra_shapes(request, width, height, bbox, region_id):
     s2 = mapnik.Style()
     rule_2 = mapnik.Rule()
 
-    rule_stk = mapnik.Stroke()
-    rule_stk.color = mapnik.Color(200, 0, 0)
-    rule_stk.line_cap = mapnik.line_cap.ROUND_CAP
-    rule_stk.width = 3.0
-    rule_2.symbols.append(mapnik.LineSymbolizer(rule_stk))
+    rule_stk = mapnik.LineSymbolizer()
+    rule_stk.stroke = mapnik.Color(200, 0, 0)
+    rule_stk.stroke_linecap = mapnik._mapnik.stroke_linecap.ROUND_CAP
+    rule_stk.stroke_width = 3.0
+    rule_2.symbols.append(rule_stk)
     s2.rules.append(rule_2)
     m.append_style('Line Style Regionale Keringen Met Functie', s2)
 
@@ -1420,11 +1420,11 @@ def service_get_extra_shapes(request, width, height, bbox, region_id):
     s4 = mapnik.Style()
     rule_4 = mapnik.Rule()
 
-    rule_stk = mapnik.Stroke()
-    rule_stk.color = mapnik.Color(235, 235, 50)
-    rule_stk.line_cap = mapnik.line_cap.ROUND_CAP
-    rule_stk.width = 3.0
-    rule_4.symbols.append(mapnik.LineSymbolizer(rule_stk))
+    rule_stk = mapnik.LineSymbolizer()
+    rule_stk.stroke = mapnik.Color(235, 235, 50)
+    rule_stk.stroke_linecap = mapnik._mapnik.stroke_linecap.ROUND_CAP
+    rule_stk.stroke_width = 3.0
+    rule_4.symbols.append(rule_stk)
     s4.rules.append(rule_4)
     m.append_style('Line Style Keringen Buiten De Provincie', s4)
 
