@@ -1187,8 +1187,8 @@ def service_get_existing_embankments_shape(
     #### Point style
     p_style = mapnik.Style()
     p_rule = mapnik.Rule()
-    mark_symb = mapnik.MarkersSymbolizer();
-    mark_symb.marker_type="ellipse"
+    mark_symb = mapnik.MarkersSymbolizer()
+    # mark_symb.marker_type="ellipse"
     mark_symb.fill=mapnik.Color("blue")
     mark_symb.allow_overlap=True
     p_rule.symbols.append(mark_symb)

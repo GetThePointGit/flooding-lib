@@ -236,7 +236,7 @@ class MapnikPointLegend:
                     symbol_out, **symbol_kwargs))
             mapnik_rule = mapnik.Rule()
             ps = mapnik.PointSymbolizer()
-            ps.filename = filename_abs
+            ps.file = filename_abs
             mapnik_rule.symbols.append(ps)
             mapnik_rule.filter = mapnik.Filter(
                 str("[NAME] = '%s'" % (rule_name)))

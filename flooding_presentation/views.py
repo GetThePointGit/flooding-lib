@@ -323,7 +323,7 @@ def service_get_wms_of_shape(
                 log.debug('field source type ' +
                           field.source_type + ' not yet supported')
 
-        if (layer.GetFeatureCount() > 0):
+        if layer.GetFeatureCount() > 0:
             feature = layer.next()
             id_index = feature.GetFieldIndex('id')
 
@@ -385,18 +385,18 @@ def service_get_wms_of_shape(
     lyr = mapnik.Layer('Points', spherical_mercator)  
     m.append_style('Points legend', mpl.get_style())  
 
-    memory_ds = mapnik.MemoryDatasource() #lyr.datasource
-    context = mapnik.Context()
-    context.push("name")
     next_id = 1
+    csv = 'id,NAME,wkt\n'
     for x, y, name, rule_name in points:
-        wkt = "POINT(%0.1f %0.1f)" % (x, y)
-        feature = mapnik.Feature(context, next_id)
-        feature[name] = rule_name
-        feature.add_geometries_from_wkt(wkt)
-        memory_ds.add_feature(feature)
+        wkt = '"POINT(%0.1f %0.1f)"' % (x, y)
+        csv += "{0},{1},{2}\n".format(next_id, rule_name, wkt)
         next_id += 1
-    lyr.datasource = memory_ds
+
+    ds = mapnik.CSV(
+        inline=csv
+    )
+
+    lyr.datasource = ds
     log.debug('finish making memory datasource ' +
               str(datetime.datetime.now()))
     lyr.styles.append('Points legend')
