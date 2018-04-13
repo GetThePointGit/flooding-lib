@@ -7,10 +7,9 @@ import sys
 import numpy as np
 from osgeo import gdal
 
-from django.conf import settings
+from flooding import settings
 from django import db
 
-from flooding_base.models import Setting
 from flooding_lib import models
 from flooding_lib.models import Scenario
 from flooding_lib.tools.importtool.models import InputField
@@ -103,11 +102,9 @@ def standalone_generation_for_result(result):
     scenario = result.scenario
     maxwaterdepth_geotransform = (
         calculate_export_maps.maxwaterdepth_geotransform(scenario))
-    results_dir = (
-        Setting.objects.get(key='DESTINATION_DIR').value.replace('\\', '/'))
+    results_dir = settings.EXTERNAL_RESULT_MOUNTED_DIR
     # Destination dir -- same as the old PNGs were saved to
-    destination_dir = (
-        Setting.objects.get(key='DESTINATION_DIR').value.replace('\\', '/'))
+    destination_dir = settings.EXTERNAL_PRESENTATION_MOUNTED_DIR
     base_output_dir = os.path.join(destination_dir, scenario.get_rel_destdir())
     base_output_dir = base_output_dir.encode('utf8')  # Gdal wants byte strings
 
@@ -124,12 +121,10 @@ def generate_for_result_queryset(
     logger.debug("selected results for scenario: %s" % str(results))
 
     logger.debug("starting the loop on all previously computed results")
-    results_dir = (
-        Setting.objects.get(key='DESTINATION_DIR').value.replace('\\', '/'))
+    results_dir = settings.EXTERNAL_RESULT_MOUNTED_DIR
 
     # Destination dir -- same as the old PNGs were saved to
-    destination_dir = (
-        Setting.objects.get(key='DESTINATION_DIR').value.replace('\\', '/'))
+    destination_dir = settings.EXTERNAL_PRESENTATION_MOUNTED_DIR
     base_output_dir = os.path.join(destination_dir, scenario.get_rel_destdir())
     base_output_dir = base_output_dir.encode('utf8')  # Gdal wants byte strings
 
@@ -204,6 +199,9 @@ def compute_pyramids(
         pk=INPUTFIELD_STARTMOMENT_BREACHGROWTH_ID)
     startmoment_days = result.scenario.value_for_inputfield(
             startmoment_breachgrowth_inputfield)
+    if startmoment_days is None:
+        startmoment_days = 0
+
     startmoment_hours = int(startmoment_days * 24 + 0.5)
 
     if inc_file:
@@ -228,8 +226,7 @@ def compute_pyramids(
 
 def generate_arrival_times_results(scenario, output_dir):
     # Destination dir -- same as the old PNGs were saved to
-    destination_dir = (
-        Setting.objects.get(key='DESTINATION_DIR').value.replace('\\', '/'))
+    destination_dir = settings.EXTERNAL_PRESENTATION_MOUNTED_DIR
 
     names = [
         f for f in (
@@ -410,6 +407,8 @@ def correct_gridta(grid, result):
         pk=INPUTFIELD_STARTMOMENT_BREACHGROWTH_ID)
     startmoment_days = result.scenario.value_for_inputfield(
         startmoment_breachgrowth_inputfield)
+    if startmoment_days is None:
+        startmoment_days = 0
     startmoment_hours = int(startmoment_days * 24 + 0.5)
 
     # Subtract 'startmoment_hours' from every number in the

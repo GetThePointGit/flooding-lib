@@ -34,7 +34,6 @@ from django import db
 
 from osgeo import gdal
 
-from flooding_base.models import Setting
 from flooding_lib.models import Scenario
 from flooding_lib.tools.importtool.models import InputField
 from flooding_lib.util import colormap
@@ -82,10 +81,8 @@ def common_generation(scenario_id, source_programs, tmp_dir):
     """
 
     scenario = Scenario.objects.get(pk=scenario_id)
-    destination_dir = (
-        Setting.objects.get(key='DESTINATION_DIR').value.replace('\\', '/'))
-    source_dir = (
-        Setting.objects.get(key='SOURCE_DIR').value.replace('\\', '/'))
+    destination_dir = settings.EXTERNAL_RESULT_MOUNTED_DIR
+    source_dir = settings.EXTERNAL_SOURCE_MOUNTED_DIR
 
     logger.debug("select results relative to scenario %s" % scenario_id)
     results = list(scenario.result_set.filter(
@@ -215,6 +212,9 @@ def correct_gridta(grid, result):
         pk=INPUTFIELD_STARTMOMENT_BREACHGROWTH_ID)
     startmoment_days = result.scenario.value_for_inputfield(
         startmoment_breachgrowth_inputfield)
+    if startmoment_days is None:
+        startmoment_days = 0
+
     startmoment_hours = int(startmoment_days * 24 + 0.5)
 
     # Subtract 'startmoment_hours' from every number in the

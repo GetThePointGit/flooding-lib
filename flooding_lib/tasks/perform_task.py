@@ -3,7 +3,7 @@ import logging  # , threading, time, datetime, random, math
 
 from flooding_lib.models import Scenario
 
-from django.conf import settings
+from flooding import settings
 
 log = logging.getLogger('flooding-lib.perform_task')
 

@@ -50,7 +50,7 @@ import nens.asc
 from django import db
 from zipfile import ZipFile, ZIP_DEFLATED
 from flooding_lib.models import Scenario, Result, ResultType
-from flooding_base.models import Setting
+from flooding import settings
 
 
 def set_broker_logging_handler(broker_handler=None):
@@ -69,7 +69,7 @@ def perform_calculation(scenario_id, tmp_location, timeout=0):
     scenario = Scenario.objects.get(pk=scenario_id)
 
     log.debug("0b2: destination_dir")
-    destination_dir = Setting.objects.get(key='DESTINATION_DIR').value
+    destination_dir = settings.EXTERNAL_RESULT_MOUNTED_DIR
 
     log.debug("0c: resetting to forward-slash")
     location = tmp_location.replace("\\", "/")

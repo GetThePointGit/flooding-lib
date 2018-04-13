@@ -56,7 +56,7 @@ from flooding_presentation.models import SourceLinkType, SourceLink, \
     PresentationShape
 
 
-from flooding_base.models import Setting
+from flooding import settings
 
 from zipfile import ZipFile
 import StringIO
@@ -68,9 +68,9 @@ import datetime
 
 def calc_damage(scenario_id):
     log.debug('read django and lizard settings')
-    source_dir = Setting.objects.get(key='source_dir').value
-    result_dir = Setting.objects.get(key='destination_dir').value
-    presentation_dir = Setting.objects.get(key='presentation_dir').value
+    source_dir = settings.EXTERNAL_SOURCE_MOUNTED_DIR
+    result_dir = settings.EXTERNAL_RESULT_MOUNTED_DIR
+    presentation_dir = settings.EXTERNAL_PRESENTATION_MOUNTED_DIR
 
     log.debug('read scenario and file settings')
     dest_shape = os.path.join('flooding', 'scenario', str(scenario_id), 'embank_damage.shp')

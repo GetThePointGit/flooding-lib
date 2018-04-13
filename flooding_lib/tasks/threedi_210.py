@@ -4,8 +4,7 @@
 #from threedilib.threedi import setup_and_run_3di
 #from flooding_lib.models import ThreediCalculation
 from flooding_lib.models import Scenario
-from flooding_base.models import Setting
-from django.conf import settings
+from flooding import settings
 
 from flooding_lib.util import files
 import os
@@ -18,7 +17,7 @@ def full_model_path(rel_path):
         # Apparently the path is absolute
         return rel_path  # = full path
     else:
-        path = Setting.objects.get(key='SOURCE_DIR').value
+        path = settings.EXTERNAL_SOURCE_MOUNTED_DIR
         path = path.replace('\\', '/')  # Unix path
         model_path = os.path.join(path, rel_path)
         return model_path

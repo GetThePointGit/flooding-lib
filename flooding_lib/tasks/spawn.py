@@ -46,8 +46,8 @@ logging.basicConfig(
 log = logging.getLogger('nens')
 
 from flooding_lib.models import Scenario, ResultType
-from flooding_base.models import Setting
 from flooding_lib.util.files import remove_comments_from_asc_files
+from flooding import settings
 
 from django import db
 
@@ -270,8 +270,8 @@ def perform_sobek_simulation(scenario_id,
         default_sobek_locations[sobek_version])
     #sobek_location = [d for d in sobek_location.split('/') if d]
     log.debug("sobek_location: %s" % sobek_location)
-    destination_dir = Setting.objects.get(key='DESTINATION_DIR').value
-    source_dir = Setting.objects.get(key='SOURCE_DIR').value
+    destination_dir = settings.EXTERNAL_RESULT_MOUNTED_DIR
+    source_dir = settings.EXTERNAL_SOURCE_MOUNTED_DIR
 
     project_dir = os.path.join(sobek_location, sobek_project_directory)
     log.debug("project_dir: %s" % project_dir)

@@ -18,10 +18,10 @@ import numpy
 import numpy.ma as ma
 import os
 
-from flooding_base import models as basemodels
 from flooding_lib import models
 from flooding_lib.util import files
 from flooding_lib.util import flshinc
+from flooding import settings
 
 logger = logging.getLogger(__name__)
 
@@ -31,8 +31,7 @@ WATERDEPTH_ANIM_SOBEK_RESULT_ID = 15
 
 
 def result_zip(scenario, resulttype_id):
-    destination_dir = basemodels.Setting.objects.get(
-        key='DESTINATION_DIR').value
+    destination_dir = settings.EXTERNAL_RESULT_MOUNTED_DIR
     destination_dir = destination_dir.replace('\\', '/')
     result = scenario.result_set.get(resulttype__id=resulttype_id)
     resultloc = result.resultloc.replace('\\', '/')
@@ -168,8 +167,7 @@ def save_inundation_json(scenario, j):
         'inundation_statistics.json')
 
     destination = os.path.join(
-        basemodels.Setting.objects.get(
-            key='DESTINATION_DIR').value.replace('\\', '/'),
+        settings.EXTERNAL_RESULT_MOUNTED_DIR,
         resultloc)
 
     f = file(destination, 'w')

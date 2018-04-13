@@ -42,6 +42,7 @@ from django import db
 from zipfile import ZipFile, ZIP_DEFLATED
 from flooding_lib.models import Scenario, Result, ResultType
 from flooding_base.models import Setting
+from flooding import settings
 
 import os
 import logging
@@ -117,7 +118,7 @@ def perform_HISSSM_calculation(scenario_id, tmp_location, timeout=0):
     log.debug("step 0a: get settings")
     scenario = Scenario.objects.get(pk=scenario_id)
     year = Setting.objects.get(key='YEAR').value
-    destination_dir = Setting.objects.get(key='DESTINATION_DIR').value
+    destination_dir = settings.EXTERNAL_RESULT_MOUNTED_DIR
 
     log.debug("step 0c: get temp location: resetting to forward-slash")
     location = tmp_location.replace("\\", "/")

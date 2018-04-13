@@ -165,10 +165,9 @@ class Scenario:
         self.breachlinkproperty = breachlinkproperties[0]
 
         # get the system settings.
-        self.settings = dict([(i.key, i.value) for i in base.models.Setting.objects.all()])
+        self.source_dir = dj_settings.EXTERNAL_PRESENTATION_MOUNTED_DIR
+        self.destination_dir = dj_settings.EXTERNAL_RESULT_MOUNTED_DIR
 
-        self.source_dir = self.settings['source_dir'].replace('\\', os.sep)
-        self.destination_dir = self.settings['destination_dir'].replace('\\', os.sep)
         # make sure we're using the configured coordinates.
         if self.scenario.sobekmodel_inundation.model_srid == 28992:
             #there is an error in the proj.4 library. So in case of  28992 is the next spatial reference WKT string

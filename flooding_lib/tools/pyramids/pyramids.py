@@ -62,6 +62,9 @@ def settings_for_animation(animation, scenario=None):
         inputfield = InputField.objects.get(
             pk=INPUTFIELD_STARTMOMENT_BREACHGROWTH_ID)
         startmoment_days = scenario.value_for_inputfield(inputfield)
+        if startmoment_days is None:
+            startmoment_days = 0
+
         startmoment_hours = int(startmoment_days * 24 + 0.5)
 
         if startmoment_hours > 0:

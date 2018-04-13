@@ -46,7 +46,7 @@ from flooding_lib.models import Scenario, \
 from flooding_presentation.models import SourceLinkType, SourceLink, \
     PresentationSource, PresentationType, PresentationLayer, \
     PresentationShape, PresentationGrid, Animation
-from flooding_base.models import Setting
+from flooding import settings
 
 from nens import sobek
 from nens.mock import Stream
@@ -376,9 +376,9 @@ def get_or_create_geo_presentation_source(
     '''
     log.debug('!!!get_or_create_geo_presentation_source')
 
-    dest_dir = Setting.objects.get(key='DESTINATION_DIR').value
-    presentation_dir = Setting.objects.get(key='PRESENTATION_DIR').value
-    source_dir = Setting.objects.get(key='SOURCE_DIR').value
+    dest_dir = settings.EXTERNAL_RESULT_MOUNTED_DIR
+    presentation_dir = settings.EXTERNAL_PRESENTATION_MOUNTED_DIR
+    source_dir = settings.EXTERNAL_SOURCE_MOUNTED_DIR
 
     #get source model info and determine destination
     if pt.generation_geo_source == 'scenario_model':
@@ -503,9 +503,8 @@ def get_or_create_value_presentation_source(
         In case of an error, an exeption is thrown.
     '''
     log.debug('!!!get_or_create_value_presentation_source')
-    dest_dir = Setting.objects.get(key='DESTINATION_DIR').value
-    presentation_dir = Setting.objects.get(key='PRESENTATION_DIR').value
-    #source_dir = Setting.objects.get(key='SOURCE_DIR').value
+    dest_dir = settings.EXTERNAL_RESULT_MOUNTED_DIR
+    presentation_dir = settings.EXTERNAL_PRESENTATION_MOUNTED_DIR
     try:
         animation = {}
 
@@ -692,12 +691,9 @@ def get_or_create_pngserie_with_defaultlegend_from_old_results(scenario, pt):
 
         try:
             log.info(result.resultpngloc)
-            dest_dir = Setting.objects.get(key='DESTINATION_DIR').value
-            # Make sure every directory separator is consistent
-            #dest_dir = dest_dir.replace('\\', os.sep).replace('/', os.sep)
-            presentation_dir = Setting.objects.get(
-                key='PRESENTATION_DIR').value
-            #presentation_dir = presentation_dir.replace('\\', os.sep).replace('/', os.sep)
+            dest_dir = settings.EXTERNAL_RESULT_MOUNTED_DIR
+            presentation_dir = settings.EXTERNAL_PRESENTATION_MOUNTED_DIR
+
             if result.resultpngloc is not None:
                 log.debug('read grid information from pgw en png file!')
                 resultpngloc = result.resultpngloc.replace('\\', '/')
