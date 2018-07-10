@@ -20,7 +20,7 @@ import Image
 from osgeo import gdal
 import numpy as np
 
-from django.conf import settings
+from flooding import settings
 from django.db import models
 from django_extensions.db.fields import UUIDField
 from django_extensions.db.fields.json import JSONField
@@ -110,6 +110,7 @@ class Animation(models.Model):
                 .format(i, self.frames))
 
         return os.path.join(
+            settings.EXTERNAL_RESULT_MOUNTED_DIR,
             self.basedir.encode('utf8'), b'dataset{:04d}.tiff'.format(i))
 
     @property

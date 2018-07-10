@@ -104,7 +104,7 @@ def standalone_generation_for_result(result):
         calculate_export_maps.maxwaterdepth_geotransform(scenario))
     results_dir = settings.EXTERNAL_RESULT_MOUNTED_DIR
     # Destination dir -- same as the old PNGs were saved to
-    destination_dir = settings.EXTERNAL_PRESENTATION_MOUNTED_DIR
+    destination_dir = settings.EXTERNAL_RESULT_MOUNTED_DIR
     base_output_dir = os.path.join(destination_dir, scenario.get_rel_destdir())
     base_output_dir = base_output_dir.encode('utf8')  # Gdal wants byte strings
 
@@ -124,7 +124,7 @@ def generate_for_result_queryset(
     results_dir = settings.EXTERNAL_RESULT_MOUNTED_DIR
 
     # Destination dir -- same as the old PNGs were saved to
-    destination_dir = settings.EXTERNAL_PRESENTATION_MOUNTED_DIR
+    destination_dir = settings.EXTERNAL_RESULT_MOUNTED_DIR
     base_output_dir = os.path.join(destination_dir, scenario.get_rel_destdir())
     base_output_dir = base_output_dir.encode('utf8')  # Gdal wants byte strings
 
@@ -308,10 +308,12 @@ def animation_from_inc(inc_file, output_dir, maxwaterdepth_geotransform,
 
     rows, cols = array.shape
 
+    rel_dir = output_dir.replace(settings.EXTERNAL_RESULT_MOUNTED_DIR)
+
     animation = pyramidmodels.Animation.objects.create(
         frames=i + 1, cols=cols, rows=rows,
         geotransform={'geotransform': geotransform},
-        basedir=output_dir,
+        basedir=rel_dir,
         maxvalue=maxvalue)
 
     if use_to_compute_arrival_times:
