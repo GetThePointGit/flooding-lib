@@ -623,7 +623,7 @@ def service_get_graph_of_shape(
     ax.legend(
         (v for k, v in plots.iteritems()),
         (k for k, v in plots.iteritems()),
-        'upper left', shadow=True)
+        loc='upper left', shadow=True)
 
     #Return figure as png-file
     log.debug('start making picture' + str(datetime.datetime.now()))
@@ -707,7 +707,7 @@ def read_his_file(sobek_id, presentationlayer):
     pl = presentationlayer
 
     his = cache.get('his_' + str(presentationlayer.id))
-    if his == None:
+    if his is None:
         zip_name = external_file_location(
             pl.presentationshape.value_source.file_location)
 
@@ -719,7 +719,7 @@ def read_his_file(sobek_id, presentationlayer):
             filename = input_file.filelist[0].filename
 
         his = HISFile(
-            Stream(input_file.read(external_file_location(filename))))
+            Stream(input_file.read(filename)))
         input_file.close()
         cache.set('his_' + str(presentationlayer.id), his, 30)
 

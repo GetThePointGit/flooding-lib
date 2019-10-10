@@ -16,3 +16,4 @@ htmlcov
 src
 localsettings.py
 var
+.idea
